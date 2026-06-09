@@ -12,14 +12,12 @@
 #include <string>
 #include <iostream>
 
-// Temporary Mock Class for Person 2s code so you can compile
+// Temporary Mock Class for Person 2s code so it can compile
 class TheatreShow {
 public:
-    // Expanded constructor to support Admin data fields
     TheatreShow(std::string id, std::string name, std::string city)
         : showID(id), showName(name), showCity(city) {}
 
-    // Core attribute getters used by the interface loops
     std::string getShowID() const { return showID; }
     std::string getShowName() const { return showName; }
     std::string getCity() const { return showCity; }
@@ -56,7 +54,7 @@ private:
     std::string showCity;
 };
 
-// Temporary Mock Class for Person 1s code so you can compile
+// Temporary Mock Class for Person 1s code so it can compile
 class FileManager {};
 
 class TheatreManagementSystem {
