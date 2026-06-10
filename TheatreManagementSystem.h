@@ -12,6 +12,9 @@
 #include <string>
 #include <iostream>
 
+#include "filemanager.h"
+#include "TheatreShow.h"
+
 // Temporary Mock Class for Person 2s code so it can compile
 class TheatreShow {
 public:
@@ -53,9 +56,6 @@ private:
     std::string showName;
     std::string showCity;
 };
-
-// Temporary Mock Class for Person 1s code so it can compile
-class FileManager {};
 
 class TheatreManagementSystem {
 public:

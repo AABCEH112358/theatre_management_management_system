@@ -6,16 +6,20 @@
 //
 
 #include "TheatreManagementSystem.h"
+#include "filemanager.h"
+#include "costumer.h"
+#include "TheatreShow.h"
+#include "reservation.h"
+
 #include <iostream>
 #include <string>
 #include <limits>
 #include <ios>
 
 void TheatreManagementSystem::start() {
-    // Mock
-    theatreShows.push_back(TheatreShow("SH100", "Hamilton", "Calgary"));
-    theatreShows.push_back(TheatreShow("SH200", "Wicked", "Calgary"));
-
+    fileManager.loadShows("shows.txt", theatreShows);
+    fileManager.loadReservations("reservations.txt", theatreShows);
+    
     displayTitleScreen();
     
     int role = selectUserRole();
@@ -241,11 +245,13 @@ void TheatreManagementSystem::runAdminMenu() {
 
             case 5: {
                 std::cout << "Do you want to save the reservation data in reservations.txt?\n";
-                std::cout << "Please answer <Y or N>: "; // Matches exact project text prompt
+                std::cout << "Please answer <Y or N>: ";
                 char saveConfirm;
                 std::cin >> saveConfirm;
                 if (saveConfirm == 'Y' || saveConfirm == 'y') {
-                    std::cout << "All reservation data has been saved. (Mock File Out)\n";
+                    fileManager.saveReservations("reservations.txt", theatreShows);
+                    
+                    std::cout << "All reservation data has been saved.\n";
                 }
                 break;
             }
