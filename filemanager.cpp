@@ -110,7 +110,7 @@ int FileManager::saveReservations(const string& filename,
     
     for (int i = 0; i < shows.size(); i++) {
         
-        vector<Reservation> reservations = shows.at(i).getReservations(); // another func form the TheatreShow class
+        vector<Reservation> reservations = shows.at(i).getReservations(); // another func from the TheatreShow class
  
         
         for (int j = 0; j < reservations.size(); j++) {
