@@ -35,7 +35,6 @@ int FileManager::loadShows(const string& filename, vector<TheatreShow>& shows) {
     return 1;
 }
 
-
  
 int FileManager::loadReservations(const string& filename,
                                    vector<TheatreShow>& shows) {
@@ -129,4 +128,12 @@ int FileManager::saveReservations(const string& filename,
 }
  
 /// need review by teammates ... 
+
+
+
+
+
+
+
+
 
