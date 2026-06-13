@@ -102,7 +102,7 @@ int FileManager::saveReservations(const string& filename,
     outFile.open(filename);
  
     if (outFile.fail()) {
-        cout << "Error: could not write to " << filename << endl;
+        cerr << "Error: could not write to " << filename << endl;
         return 0;
     }
  
