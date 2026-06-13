@@ -1,10 +1,3 @@
-//
-//  TheatreManagementSystem.cpp
-//  termProject
-//
-//  Created by Yaseen Azzam on 2026-06-08.
-//
-
 #include "TheatreManagementSystem.h"
 #include "filemanager.h"
 #include "costumer.h"
@@ -98,36 +91,64 @@ void TheatreManagementSystem::runCustomerMenu() {
                 }
                 break;
 
-            case 3:
-                if (selectedShowIndex >= 0 && selectedShowIndex < static_cast<int>(theatreShows.size())) {
-                    std::string first, last, phone;
-                    int row;
-                    char seat;
-                    std::cout << "First Name: "; std::cin >> first;
-                    std::cout << "Last Name: ";  std::cin >> last;
-                    std::cout << "Phone: ";      std::cin >> phone;
-                    std::cout << "Row (Starts at 1): "; std::cin >> row;
-                    std::cout << "Seat Letter: ";       std::cin >> seat;
+             case 3:
+                 if (selectedShowIndex >= 0 && selectedShowIndex < static_cast<int>(theatreShows.size())) {
+                     std::string first, last;
+                     int row;
+                     char seat;
+                                
+                     std::cout << "First Name: ";
+                     std::cin >> first;
+                     std::cout << "Last Name: ";
+                     std::cin >> last;
+                                
+                     std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                     std::string phone = Customer::validatePhoneNumber();
+                        if (phone.empty()) {
+                            std::cout << "Reservation cancelled.\n";
+                            break;
+                        }
 
-                    theatreShows[selectedShowIndex].addReservation(first, last, phone, row, seat);
-                } else {
-                    std::cout << "Error: Select a show first.\n";
-                }
-                break;
+                        std::cout << "Row (Starts at 1): ";
+                        std::cin >> row;
+                        std::cout << "Seat Letter: ";
+                        std::cin >> seat;
+
+                        int newResID = nextReservationID++;
+
+                        theatreShows[selectedShowIndex].addReservation(newResID, first, last, phone, row, seat);
+                                
+                    } else {
+                        std::cout << "Error: Select a show first.\n";
+                    }
+                    break;
 
             case 4:
                 if (selectedShowIndex >= 0 && selectedShowIndex < static_cast<int>(theatreShows.size())) {
                     int resID;
-                    std::cout << "Enter reservation ID to cancel: "; std::cin >> resID;
+                    std::cout << "Enter reservation ID to cancel: ";
+                    std::cin >> resID;
                     theatreShows[selectedShowIndex].cancelReservation(resID);
                 } else {
                     std::cout << "Error: Select a show first.\n";
                 }
                 break;
 
-            case 5:
-                std::cout << "All data saved. (Mock)\n";
+            case 5: {
+                std::cout << "Do you want to save your reservation data?\n";
+                std::cout << "Please answer <Y or N>: ";
+                char saveConfirm;
+                std::cin >> saveConfirm;
+                
+                if (saveConfirm == 'Y' || saveConfirm == 'y') {
+                    fileManager.saveReservations("reservations.txt", theatreShows);
+                    
+                    std::cout << "Success: Your reservation has been saved to the system.\n";
+                } else {
+                    std::cout << "Save cancelled.\n";
+                }
                 break;
+            }
 
             case 6:
                 std::cout << "Program terminated.\n";
@@ -208,13 +229,18 @@ void TheatreManagementSystem::runAdminMenu() {
                 std::string id, name, city;
                 int rows, seatsPerRow;
 
-                std::cout << "Enter Show ID (e.g., SH500): ";   std::cin >> id;
-                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Clean buffer before getline
+                std::cout << "Enter Show ID (e.g., SH500): ";
+                std::cin >> id;
+                std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                 
-                std::cout << "Enter Show Name: ";               std::getline(std::cin, name);
-                std::cout << "Enter City: ";                    std::getline(std::cin, city);
-                std::cout << "Enter Rows: ";                    std::cin >> rows;
-                std::cout << "Enter Seats Per Row: ";          std::cin >> seatsPerRow;
+                std::cout << "Enter Show Name: ";
+                std::getline(std::cin, name);
+                std::cout << "Enter City: ";
+                std::getline(std::cin, city);
+                std::cout << "Enter Rows: ";
+                std::cin >> rows;
+                std::cout << "Enter Seats Per Row: ";
+                std::cin >> seatsPerRow;
 
                 theatreShows.push_back(TheatreShow(id, name, city));
                 std::cout << "Show successfully added.\n";
@@ -244,14 +270,18 @@ void TheatreManagementSystem::runAdminMenu() {
             }
 
             case 5: {
-                std::cout << "Do you want to save the reservation data in reservations.txt?\n";
+                std::cout << "Do you want to save all system data? (Shows and Reservations)\n";
                 std::cout << "Please answer <Y or N>: ";
                 char saveConfirm;
                 std::cin >> saveConfirm;
+                
                 if (saveConfirm == 'Y' || saveConfirm == 'y') {
+                    fileManager.saveShows("shows.txt", theatreShows);
                     fileManager.saveReservations("reservations.txt", theatreShows);
                     
-                    std::cout << "All reservation data has been saved.\n";
+                    std::cout << "Success: Shows saved to shows.txt and Reservations saved to reservations.txt.\n";
+                } else {
+                    std::cout << "Save cancelled.\n";
                 }
                 break;
             }
