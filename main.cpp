@@ -1,11 +1,16 @@
-#include "costumer.h"
+//
+//  main.cpp
+//  termProject
+//
+//  Created by Yaseen Azzam on 2026-06-08.
+//
 
-#include <iostream>
+#include "TheatreManagementSystem.h"
 
-using namespace std;
+int main(int argc, const char * argv[]) {
+    TheatreManagementSystem system;
 
-int main(){
-    Customer a;
-    cout << a.validatePhoneNumber();
+    system.start();
+
     return 0;
 }
