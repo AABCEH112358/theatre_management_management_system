@@ -44,9 +44,8 @@ void Customer::setPhoneNumber(const string& phoneNumber){
 
 string Customer::validatePhoneNumber(){
     string inputPhoneNumber; 
-    bool phoneFlag;
     while(true){
-        int phoneFlag;
+        bool phoneFlag = true;
         cout << "Enter phone number (digits only, or 0 to cancel): ";
         cin >> inputPhoneNumber;
         if (inputPhoneNumber == "0") return "";
@@ -67,7 +66,7 @@ string Customer::validatePhoneNumber(){
             continue;
         }
 
-        string validPhoneNumber = "(" + inputPhoneNumber.substr(0,3) + ")"
+        string validPhoneNumber = inputPhoneNumber.substr(0,3) + "-"
                         + inputPhoneNumber.substr(3, 3) + "-" + inputPhoneNumber.substr(6, 4);
 
         return validPhoneNumber;
@@ -80,4 +79,4 @@ void Customer::display() const{
       cout << "Customer information" << endl;
       cout << "Name: " << getFullName() << endl;
       cout << "Phone number: " << getPhoneNumber() << endl;
-};
+}

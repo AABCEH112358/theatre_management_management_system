@@ -21,7 +21,7 @@ private:
     FileManager fileManager;
     std::vector<TheatreShow> theatreShows;
     int selectedShowIndex = -1;
-    int nextReservationID = 2000;
+    int nextReservationID = 20006; /// fixed by anes_khacha "matched the Id to that given in the files so we avoid collision"
 };
 
 #endif

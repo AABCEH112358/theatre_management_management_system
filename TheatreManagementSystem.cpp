@@ -29,6 +29,7 @@ void TheatreManagementSystem::displayTitleScreen() {
     std::cout << "Produced by Group #3\n";
     std::cout << "Names: Anes Khacha, Usman Mirza, Yaseen Azzam\n\n";
     std::cout << "<<< Press Return to Continue >>>\n";
+
     std::cin.get();
 }
 
@@ -109,7 +110,7 @@ void TheatreManagementSystem::runCustomerMenu() {
                             break;
                         }
 
-                        std::cout << "Row (Starts at 1): ";
+                        std::cout << "Row (Starts at 0): ";
                         std::cin >> row;
                         std::cout << "Seat Letter: ";
                         std::cin >> seat;
@@ -242,7 +243,7 @@ void TheatreManagementSystem::runAdminMenu() {
                 std::cout << "Enter Seats Per Row: ";
                 std::cin >> seatsPerRow;
 
-                theatreShows.push_back(TheatreShow(id, name, city));
+                theatreShows.push_back(TheatreShow(id, name, city, rows, seatsPerRow)); // Fixed by anes khacha
                 std::cout << "Show successfully added.\n";
                 break;
             }

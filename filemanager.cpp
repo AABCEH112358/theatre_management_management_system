@@ -16,7 +16,7 @@ int FileManager::loadShows(const string& filename, vector<TheatreShow>& shows) {
     inFile.open(filename);
 
     if (inFile.fail()){
-        cout << "Erroe: could not open file" << filename << endl;
+        cout << "Error: could not open file " << filename << endl;
         return 0;
     }
 
@@ -104,7 +104,7 @@ int FileManager::saveReservations(const string& filename,
     outFile.open(filename);
  
     if (outFile.fail()) {
-        cerr << "Error: could not write to " << filename << endl;
+        cout << "Error: could not write to " << filename << endl;
         return 0;
     }
  
@@ -128,7 +128,30 @@ int FileManager::saveReservations(const string& filename,
     outFile.close();
     return 1;
 }
- 
+
+int FileManager::saveShows(const string& filename, const vector<TheatreShow>& shows) const{
+    ofstream outFile;
+    outFile.open(filename);
+    if (outFile.fail()){
+        cout << "Error: could not open file" << filename << endl;
+        return 0;
+    }
+    for (int i = 0; i <shows.size(); i++) {
+        outFile << shows.at(i).getShowID()  << " "
+                << shows.at(i).getShowName() << " "
+                << shows.at(i).getCity() << " "
+                << shows.at(i).getNumRows() << " "
+                << shows.at(i).getSeatsPerRow() << endl;
+    }
+    outFile.close();
+    return 1;
+
+}
+
+
+
+
+
 /// need review by teammates ... 
 
 

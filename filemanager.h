@@ -17,6 +17,8 @@ class FileManager{
         int loadReservations(const std::string& filename, std::vector<TheatreShow>& shows);
 
         int saveReservations(const std::string& filename, const std::vector<TheatreShow>& shows) const;
+
+        int saveShows(const std::string& filename, const std::vector<TheatreShow>& shows) const; 
 };
 
 #endif
