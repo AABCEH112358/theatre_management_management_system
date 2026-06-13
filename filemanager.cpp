@@ -1,5 +1,7 @@
 #include "filemanager.h"
 #include "TheatreShow.h"
+#include "costumer.h"
+#include "reservation.h"
 
 #include <fstream>
 #include <sstream>
@@ -31,7 +33,7 @@ int FileManager::loadShows(const string& filename, vector<TheatreShow>& shows) {
         shows.push_back(newShow);
     }
 
-    inFIle.close(); 
+    inFile.close(); 
     return 1;
 }
 
