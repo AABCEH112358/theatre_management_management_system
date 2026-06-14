@@ -1,0 +1,3 @@
+SH100 Hamilton Calgary 10 4
+SH200 Wicked Calgary 12 6
+SH300 Les_Miserables Calgary 8 5

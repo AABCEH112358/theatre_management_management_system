@@ -60,10 +60,11 @@ void TheatreManagementSystem::runCustomerMenu() {
         std::cout << "Please select one of the following options:\n";
         std::cout << "1. Select a Theatre Show\n";
         std::cout << "2. Display Theatre Seat Map\n";
-        std::cout << "3. Add a New Reservation\n";
-        std::cout << "4. Cancel an Existing Reservation\n";
-        std::cout << "5. Save Data\n";
-        std::cout << "6. Quit\n";
+        std::cout << "3. Display Reservation information\n";
+        std::cout << "4. Add a New Reservation\n";
+        std::cout << "5. Cancel an Existing Reservation\n";
+        std::cout << "6. Save Data\n";
+        std::cout << "7. Quit\n";
         std::cout << "Enter your choice: ";
 
         if (!(std::cin >> choice)) {
@@ -77,11 +78,26 @@ void TheatreManagementSystem::runCustomerMenu() {
             case 1:
                 std::cout << "\n--- Available Theatre Shows ---\n";
                 for (size_t i = 0; i < theatreShows.size(); ++i) {
-                    std::cout << i + 1 << ". " << theatreShows[i].getShowName() << "\n";
+                    std::cout << i + 1 << ". " << theatreShows[i].getShowID() << " "
+                              << theatreShows[i].getShowName() << " "
+                              << theatreShows[i].getCity() << "\n";
                 }
                 std::cout << "Select a show number: ";
-                std::cin >> selectedShowIndex;
-                selectedShowIndex--;
+                int showChoice;
+                if(!(std::cin >> showChoice) || showChoice < 1 || showChoice > static_cast<int>(theatreShows.size())){
+                    std::cout << "Error: Invalid Show Number.\n"; 
+                    std::cin.clear();
+                    std::cin.ignore(1000, '\n'); 
+                    break;
+                }
+                selectedShowIndex = showChoice-1; 
+                std::cout << "You have selected show "
+                          << theatreShows[selectedShowIndex].getShowID() << ": "
+                          << theatreShows[selectedShowIndex].getShowName() << " in "
+                          << theatreShows[selectedShowIndex].getCity() << ".\n";
+                std::cout << "<<< Press Return to Continue>>>\n";
+                std::cin.ignore(1000, '\n'); 
+                std::cin.get();
                 break;
 
             case 2:
@@ -92,7 +108,14 @@ void TheatreManagementSystem::runCustomerMenu() {
                 }
                 break;
 
-             case 3:
+             case 3: 
+                if(selectedShowIndex >= 0 && selectedShowIndex < static_cast<int>(theatreShows.size())){
+                    theatreShows[selectedShowIndex].displayReservations();
+                }else {
+                    std::cout << "Error: select a valid show first (option 1)\n";
+                }
+                break;
+             case 4:
                  if (selectedShowIndex >= 0 && selectedShowIndex < static_cast<int>(theatreShows.size())) {
                      std::string first, last;
                      int row;
@@ -124,7 +147,7 @@ void TheatreManagementSystem::runCustomerMenu() {
                     }
                     break;
 
-            case 4:
+            case 5:
                 if (selectedShowIndex >= 0 && selectedShowIndex < static_cast<int>(theatreShows.size())) {
                     int resID;
                     std::cout << "Enter reservation ID to cancel: ";
@@ -135,7 +158,7 @@ void TheatreManagementSystem::runCustomerMenu() {
                 }
                 break;
 
-            case 5: {
+            case 6: {
                 std::cout << "Do you want to save your reservation data?\n";
                 std::cout << "Please answer <Y or N>: ";
                 char saveConfirm;
@@ -151,7 +174,7 @@ void TheatreManagementSystem::runCustomerMenu() {
                 break;
             }
 
-            case 6:
+            case 7:
                 std::cout << "Program terminated.\n";
                 keepRunning = false;
                 break;
@@ -168,7 +191,7 @@ void TheatreManagementSystem::runAdminMenu() {
     
     while (keepRunning){
         std::cout << "\nMain Menu\n";
-        std::cout << "Please select of of the following options:\n";
+        std::cout << "Please select one of the following options:\n";
         std::cout << "1. Display list of shows\n";
         std::cout << "2. Display reservation information\n";
         std::cout << "3. Add a new show\n";

@@ -62,7 +62,7 @@ string Customer::validatePhoneNumber(){
         
         if (inputPhoneNumber.size() != 10)
         {
-            cout << "Invalid phone Number, try again!";
+            cout << "Invalid phone Number, try again!"<< endl;
             continue;
         }
 
