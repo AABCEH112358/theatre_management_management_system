@@ -1,4 +1,4 @@
-# theatre_management_management_system
+
 
 # Theatre Ticket Reservation Management System (TTRMS)
 
